@@ -1,1 +1,1 @@
-# SocialLogin-Practice
+# KakaoLogin-Practice
