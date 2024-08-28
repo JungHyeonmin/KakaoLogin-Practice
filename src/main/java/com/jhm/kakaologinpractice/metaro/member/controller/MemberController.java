@@ -35,17 +35,23 @@ public class MemberController {
        */
     @Operation(summary = "회원 가입", description = "회원 가입을 처리합니다.")
     @PostMapping("/signup")
+    // ResponseEntity: HttpEntity 를 상속하는 응답과 관련된 부분을 책임지는 클래스.
+    // Service->Controller 로 보낸 응답 결과를 포장하는 응답 클래스. HTTP 응답을 더욱 세밀하게 설정할 수 있도록 만들어준다.
     public ResponseEntity<?> signUp(@Valid @RequestBody MemberRequestDTO.signUpDTO requestDTO) {
+        // @Valid: 주어진 객체의 유효성 검사를 하는 어노테이션
+        // @RequestBody: 클라이언트와 서버 사이에 본문(body)에 담길 데이터를 선언한다.
 
+        // 회원가입
         memberService.signUp(requestDTO);
 
+        // ResponseEntity.ok(): ResponseEntity 객체를 생성하는 스태틱 메서드, HTTP 상태코드 200을 의미한다.
+        // body(ApiUtils.success(null)): ResponseEntity 의 본문(body)를 설정한다. 성공 메세지/성공 객체를 전달
         return ResponseEntity.ok().body(ApiUtils.success(null));
     }
 
-
     /*
-         기본 로그인
-      */
+        기본 로그인
+    */
     @Operation(summary = "로그인", description = "회원 로그인을 처리하고 인증 토큰을 발급합니다.")
     @PostMapping("/login")
     public ResponseEntity<?> login(HttpServletRequest httpServletRequest, @Valid @RequestBody MemberRequestDTO.loginDTO requestDTO) {
