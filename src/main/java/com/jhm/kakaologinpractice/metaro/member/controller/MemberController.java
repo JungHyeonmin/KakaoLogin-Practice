@@ -29,10 +29,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
     private final MemberService memberService;
-
     /*
-          기본 회원 가입
-       */
+        기본 회원 가입
+    */
     @Operation(summary = "회원 가입", description = "회원 가입을 처리합니다.")
     @PostMapping("/signup")
     // ResponseEntity: HttpEntity 를 상속하는 응답과 관련된 부분을 책임지는 클래스.
@@ -52,7 +51,7 @@ public class MemberController {
     /*
         기본 로그인
     */
-    @Operation(summary = "로그인", description = "회원 로그인을 처리하고 인증 토큰을 발급합니다.")
+    @Operation(summary = "로그인", description = "회원 로그인을 처리하고 인증 토큰을 발급합니다.") // swagger 에서 보여지는 설명 작성 (summary: 요약, description: 설명)
     @PostMapping("/login")
     public ResponseEntity<?> login(HttpServletRequest httpServletRequest, @Valid @RequestBody MemberRequestDTO.loginDTO requestDTO) {
 
@@ -66,11 +65,11 @@ public class MemberController {
     */
     @Operation(summary = "토큰 재발급", description = "Refresh Token을 사용하여 Access Token을 재발급합니다.")
     @PostMapping("/reissue")
-    public ResponseEntity<?> reissueToken(HttpServletRequest httpServletRequest) {
+    public ResponseEntity<?> reissueToken(HttpServletRequest httpServletRequest) { // HttpServletRequest: 서블릿 API를 통해 HTTP 요청 정보에 접근할 수 있게 하는 객체
 
         MemberResponseDTO.authTokenDTO responseDTO = memberService.reissueToken(httpServletRequest);
 
-        return ResponseEntity.ok().body(ApiUtils.success(responseDTO));
+        return ResponseEntity.ok().body(ApiUtils.success(responseDTO)); // 응답
     }
 
     /*
